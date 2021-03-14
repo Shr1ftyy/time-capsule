@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html>
 <body>
+<style>
+h3 {
+  font-family:'Monaco';
+  font-size: 40px;
+}
+h2 {
+  font-family:'Monaco';
+  font-size: 20px;
+}
+h1 {
+  font-family:'Monaco';
+  font-size: 11px;
+}
+p {
+  font-family:'Monaco';
+  font-size: 14px;
+}
+input {
+  font-family:'Monaco';
+  font-size: 14px;
+}
+p {
+  font-family:'Monaco';
+  font-size: 14px;
+}
+</style>
 
 <center>
-  <h3 style="font-family:'Courier New'" >Time Capsule</h3>
+  <h3>Time Capsule</h3>
+  <h1>by Shr1ftyy</h1>
+  <h2>Deploy a time-locked message that's secured by the blockchain:</h2>
 </center>
 
 <center>
-  <input style="font-family:'Courier New'" type="text" id="msg" value="Some text...">
-  <button style="font-family:'Courier New'" onclick="publish()">Publish</button>
+  <input type="text" id="msg" value="">
+  <button onclick="publish()">Publish</button>
 
-  <p style="font-family:'Courier New'" id="out"></p>
+  <p id="out"></p>
 
   <!-- js-ipfs -->
   <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
