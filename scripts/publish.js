@@ -1,7 +1,7 @@
 // import 'crypto'
 
-const MAX = 300;
-const MIN = 1;
+const MAX = 5000; // Max character count ~ 1000 words according to average word size
+const MIN = 1; // The user must insert at least 1 character, otherwise it will not pass
 async function publishToIPFS() { 
   const msg = document.getElementById("msg").value;
   const release_date = document.getElementById("release_date").value;
@@ -11,6 +11,9 @@ async function publishToIPFS() {
     const { cid } = await ipfs.add(msg);
     console.log(cid);
     console.log(release_date);
+
+    var database = firebase.database();
+
     document.getElementById("out").innerHTML = "Time capsule deployed to: " + cid;
     console.log(Object.keys(ipfs));
 		ipfs.stop()
@@ -19,3 +22,11 @@ async function publishToIPFS() {
   }
 }
 
+function writeCapsule(msg, date, time) { 
+  firebase.database().ref('users/' + userId).set({
+    msg: msg,
+    date: date,
+    time : time,
+  });
+  }
+}
