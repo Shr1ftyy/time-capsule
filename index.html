@@ -1,52 +1,99 @@
 <!DOCTYPE html>
 <html>
 <body>
-<style>
-h3 {
-  font-family:'Monaco';
-  font-size: 40px;
-}
-h2 {
-  font-family:'Monaco';
-  font-size: 20px;
-}
-h1 {
-  font-family:'Monaco';
-  font-size: 11px;
-}
-p {
-  font-family:'Monaco';
-  font-size: 14px;
-}
-input {
-  font-family:'Monaco';
-  font-size: 14px;
-}
-p {
-  font-family:'Monaco';
-  font-size: 14px;
-}
-</style>
+<!-- <style> -->
+<!-- h3 { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 40px; -->
+<!-- } -->
+<!-- h2 { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 20px; -->
+<!-- } -->
+<!-- h1 { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 11px; -->
+<!-- } -->
+<!-- p { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 14px; -->
+<!-- } -->
+<!-- input { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 14px; -->
+<!-- } -->
+<!-- p { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 14px; -->
+<!-- } -->
+
+<!-- button { -->
+<!--   font-family:'Monaco'; -->
+<!--   font-size: 12px; -->
+<!-- } -->
+<!-- </style> -->
+<link rel="stylesheet" href="style.css" />
+
 
 <center>
-  <h3>Time Capsule</h3>
-  <h1>by Shr1ftyy</h1>
-  <h2>Deploy a time-locked message that's secured by the blockchain:</h2>
+  <h3>Time Capsule</h3> 
+	<h1>by Shr1ftyy <br><br> Donate ETH or cheapETH to: 0x3f4e8A8012ccc8E26Be83db3B6d97310271EE001</h1>
+  <h2>Deploy a time-locked message that's secured by the blockchain and made public on:</h2>
+	<input type="date" id="release_date" name="release_date">
+	<input type="time"> UTC </input>  
+	<br/>
+	<br/>
+
 </center>
 
 <center>
-  <input type="text" id="msg" value="">
-  <button onclick="publish()">Publish</button>
+	<textarea rows="20" cols="60" wrap="physical" type="text" id="msg" value="i">
+	</textarea>
+	<br/>
+	<br/>
+  <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a>
+	<!-- <br/> -->
+	<!-- <br/> -->
+  <!-- <button onclick="publishToROP()">Publish to Ropsten</button> -->
+	<!-- <br/> -->
+	<!-- <br/> -->
+  <!-- <button onclick="publishToCTH()">Publish to cheapETH</button> -->
 
   <p id="out"></p>
+
+</center>
 
   <!-- js-ipfs -->
   <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
   <!-- crypto-jss -->
   <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/index.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/web3@1.3.4/lib/index.min.js"></script> -->
   <script type="text/javascript" src="scripts/publish.js"></script>
-  <!-- <script data-main="scripts/main.js" src="scripts/require.min.js"></script> -->
-</center>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+			 https://firebase.google.com/docs/web/setup#available-libraries -->
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyAx7MKbhq-kC7hoCiSAMqxbJc2Nv-3jZ6o",
+			authDomain: "time-capsule-2516a.firebaseapp.com",
+			projectId: "time-capsule-2516a",
+			storageBucket: "time-capsule-2516a.appspot.com",
+			messagingSenderId: "503896823984",
+			appId: "1:503896823984:web:f6fed65cc76ad8ba348375"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+	</script>
+
+	<div style="position: relative; width: 600px; height: 800px;">
+
+    <div style="position: absolute; bottom: 5px;">
+    </div>
+</div>
 
 </body>
 </html>

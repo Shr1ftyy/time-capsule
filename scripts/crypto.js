@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const crypto = CryptoJS; 
 
 const config = require('../config');
 const algorithm = 'aes-256-ctr';
