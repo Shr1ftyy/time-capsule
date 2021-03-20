@@ -51,12 +51,38 @@
 	</textarea>
 	<br/>
 	<br/>
-  <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a>
+ <!-- <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a> -->
 	<!-- <br/> -->
 	<!-- <br/> -->
-  <!-- <button onclick="publishToROP()">Publish to Ropsten</button> -->
+  <button class="enableEthereumButton">Connect Metamask Wallet</button>
+
+  <script type="text/javascript" src="scripts/publish.js"></script>
+  <script type="text/javascript" src="scripts/config.js"></script>
+  <script type="text/javascript" src="scripts/account.js"></script>
+
+	<script>
+    console.log("here");
+    const ethereumButton = document.querySelector('.enableEthereumButton');
+    if (typeof window.ethereum == 'undefined') {
+      console.log("Web3 wallet injector is not installed - Install Metmask for your browser");
+      ethereumButton.innerHTML = "Web3 wallet injector is not installed - Install Metmask for your browser";
+    } else{
+      getAccount();
+    }
+	</script>
+
+	<script>
+    window.ethereum.on('accountsChanged', function (accounts) {
+      getAccount();
+    })
+	</script>
+
+
+  <script>
+  </script>
+
 	<!-- <br/> -->
-	<!-- <br/> -->
+	<!-- <b/> -->
   <!-- <button onclick="publishToCTH()">Publish to cheapETH</button> -->
 
   <p id="out"></p>
@@ -68,7 +94,7 @@
   <!-- crypto-jss -->
   <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/index.min.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/web3@1.3.4/lib/index.min.js"></script> -->
-  <script type="text/javascript" src="scripts/publish.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/web3@1.3.4/dist/web3.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 <!--	<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script> --!> 
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
@@ -91,6 +117,7 @@
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
 	</script>
+
 
 	<div style="position: relative; width: 600px; height: 800px;">
 
