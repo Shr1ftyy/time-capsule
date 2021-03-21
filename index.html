@@ -35,8 +35,9 @@
 <link rel="stylesheet" href="style.css" />
 
 
+
 <center>
-  <h3>Time Capsule</h3> 
+  <h3>Time Capsule - POC</h3> 
 	<h1>by Shr1ftyy <br><br> Donate ETH or cheapETH to: 0x3f4e8A8012ccc8E26Be83db3B6d97310271EE001</h1>
   <h2>Deploy a time-locked message that's secured by the blockchain and made public on:</h2>
 	<input type="date" id="release_date" name="release_date">
@@ -46,35 +47,48 @@
 
 </center>
 
+<!-- solc -->
+<!-- <script type="text/javascript" src="scripts/solc_0_7_1.js"></script>   -->
+<script type="text/javascript" src="scripts/publish.js"></script>
+<!-- <script type="text/javascript" src="http://code.dappbench.com/browser-solc.min.js"></script> -->
+<script type="text/javascript" src="scripts/account.js"></script>
+
+<script>
+  window.onload = dispPubCap;
+</script>
+
 <center>
-	<textarea rows="20" cols="60" wrap="physical" type="text" id="msg" value="i">
+	<textarea rows="20" cols="60" wrap="physical" type="text" id="msg" value=""></textarea> <br/>
+  <p>Enter a phrase for encryption:</p>
+  <textarea rows="1" cols="10" wrap="physical" type="text" id="pass" value=""></textarea>
 	</textarea>
 	<br/>
 	<br/>
- <!-- <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a> -->
-	<!-- <br/> -->
-	<!-- <br/> -->
-  <button class="enableEthereumButton">Connect Metamask Wallet</button>
+ <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a>
+	<br/>
+	<br/>
+  <!-- <button class="enableEthereumButton">Connect Metamask Wallet</button>
+  <div id="sendDiv"></div> -->
+  
 
-  <script type="text/javascript" src="scripts/publish.js"></script>
-  <script type="text/javascript" src="scripts/config.js"></script>
-  <script type="text/javascript" src="scripts/account.js"></script>
-
+<!-- 
 	<script>
     console.log("here");
     const ethereumButton = document.querySelector('.enableEthereumButton');
-    if (typeof window.ethereum == 'undefined') {
+    if (typeof ethereum == 'undefined') {
       console.log("Web3 wallet injector is not installed - Install Metmask for your browser");
       ethereumButton.innerHTML = "Web3 wallet injector is not installed - Install Metmask for your browser";
     } else{
-      getAccount();
+      ethereumButton.addEventListener('click', () => {
+        updateInfo();
+      }); 
     }
-	</script>
+	</script> -->
 
 	<script>
-    window.ethereum.on('accountsChanged', function (accounts) {
-      getAccount();
-    })
+    console.log('lol')
+    ethereum.on('accountsChanged', updateInfo);
+    ethereum.on('chainChanged', updateInfo);
 	</script>
 
 
@@ -85,22 +99,34 @@
 	<!-- <b/> -->
   <!-- <button onclick="publishToCTH()">Publish to cheapETH</button> -->
 
-  <p id="out"></p>
+  <p id="out"></p> <br/> 
+  <!-- <p id="info"></p> <br/> -->
+  <!-- <p id="for_now">For now, you can only deploy on the Ropsten chain</p> -->
 
 </center>
 
   <!-- js-ipfs -->
   <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
   <!-- crypto-jss -->
-  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/index.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/web3@1.3.4/lib/index.min.js"></script> -->
   <script type="text/javascript" src="https://unpkg.com/web3@1.3.4/dist/web3.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
-<!--	<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script> --!> 
+<!--	<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script> --> 
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script> -->
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 
-
+  <center>
+  <h2>Latest Public Capsules</h2>
+  <table style="margin-left: auto;margin-right: auto;"class= "center" id="pub_cap" style="width:100%">  
+    <tr>
+    <th>Decrypted Message</th>
+    <th>IPFS link</th>
+  </tr>
+  </table>
+  </center>
 	<!-- TODO: Add SDKs for Firebase products that you want to use
 			 https://firebase.google.com/docs/web/setup#available-libraries -->
 
