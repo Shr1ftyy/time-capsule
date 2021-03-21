@@ -63,7 +63,7 @@ async function publishToIPFS() {
 
     writeCapsule(encryptText, cid.toString(), pass, release_timestamp);
 
-    document.getElementById("out").innerHTML = "Time capsule deployed to: " + cid;
+    document.getElementById("out").innerHTML = "Encrypted time capsule deployed to: " + cid;
     console.log(Object.keys(ipfs));
 		ipfs.stop()
   } else{
