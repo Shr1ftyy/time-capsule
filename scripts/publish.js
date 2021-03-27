@@ -56,7 +56,7 @@ async function publishToIPFS() {
 
 	writeCapsule(encryptText, cid.toString(), pass, release_timestamp);
 
-	document.getElementById("out").innerHTML = "Time capsule deployed to: " + cid;
+	document.getElementById("out").innerHTML = "Encrypted Time capsule deployed to: " + cid;
 	console.log(Object.keys(ipfs));
 	ipfs.stop()
 }
@@ -139,7 +139,7 @@ function publishToRop() {
 	if (!checkParams(release_timestamp, min_timestamp, msg)){
     return;
 	}
-  
+
   console.log("Publishing..");
 	rpc = "https://mainnet.infura.io/v3/d0b2f9d7a7c9458399c4a57063893105";
   fetch('contracts/Capsule.sol')
