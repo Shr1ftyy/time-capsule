@@ -1,9 +1,10 @@
 const CHAINS = {"0x3":"Ropsten"};
+
 function updateInfo(){
   if (!document.querySelector('.sendButton')){
     var sendBtnElement = document.createElement("BUTTON");
     sendBtnElement.className = "sendButton"
-    sendBtnElement.onclick = publishToRop();
+    sendBtnElement.onclick = publishToRop;
     var buttonParent = document.getElementById("sendDiv");
     buttonParent.appendChild(sendBtnElement);
   }
@@ -18,7 +19,7 @@ function updateInfo(){
   var chainID = ethereum.chainId; 
   var acct = ethereum.selectedAddress; 
   if (Object.keys(CHAINS).includes(chainID)){
-    ethereumButton.innerHTML = "Connected";
+    ethereumButton.remove();
     sendButton.innerHTML = "Publish to " + CHAINS[chainID];
     info.innerHTML = "selected account: " + acct;
     console.log("set")

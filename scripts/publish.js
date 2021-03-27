@@ -42,33 +42,23 @@ async function publishToIPFS() {
   console.log("enc:" + encryptText);
   console.log("dec:" + decryptText);
 
+
   const ipfs = await Ipfs.create();
-  if (release_date.toString().length < 1 || release_time.toString().length < 1){
-    document.getElementById("out").innerHTML = "You must fill out all fields" 
+	if (!checkParams(release_timestamp, min_timestamp)){
 		ipfs.stop()
     return
-  }
+	}
   
-  if (release_timestamp <= min_timestamp){
-    document.getElementById("out").innerHTML = "The time capsule cannot be opened in less than 5 minutes after it's deployment" 
-		ipfs.stop()
-    return
-  }
+	document.getElementById("out").innerHTML = "Deploying...";
+	const { cid } = await ipfs.add(encryptText);
+	console.log(cid.toString());
+	console.log(release_date, release_time);
 
-  if (msg.length < MAX && msg.length > MIN){
-    document.getElementById("out").innerHTML = "Deploying...";
-    const { cid } = await ipfs.add(encryptText);
-    console.log(cid.toString());
-    console.log(release_date, release_time);
+	writeCapsule(encryptText, cid.toString(), pass, release_timestamp);
 
-    writeCapsule(encryptText, cid.toString(), pass, release_timestamp);
-
-    document.getElementById("out").innerHTML = "Time capsule deployed to: " + cid;
-    console.log(Object.keys(ipfs));
-		ipfs.stop()
-  } else{
-    document.getElementById("out").innerHTML = "FAILED: Max character limit is " + MAX + " and minimum is " + MIN + ", your one was:\n" + msg.length.toString();
-  }
+	document.getElementById("out").innerHTML = "Time capsule deployed to: " + cid;
+	console.log(Object.keys(ipfs));
+	ipfs.stop()
 }
 
 // displays public capsules
@@ -138,47 +128,71 @@ function writeCapsule(msg, hash, pass, timestamp) {
 
 
 
-// function publishToRop() { 
-//   console.log("Publishing..");
-// 	rpc = "https://mainnet.infura.io/v3/d0b2f9d7a7c9458399c4a57063893105";
-//   fetch('contracts/Capsule.sol')
-//   .then(response => response.text())
-//   .then((data) => {
-//     console.log(data);
-//     contract = data;
-//   });
+function publishToRop() { 
+  const msg = document.getElementById("msg").value;
+  const pass = document.getElementById("pass").value;
+  const release_date = document.getElementById("release_date").value;
+  const release_time = document.getElementById("release_time").value;
 
-//   //bytecode of ../contracts/Capsule.sol
+  [release_timestamp, min_timestamp] = getTimestamp();
 
-//   BrowserSolc.loadVersion("soljson-v0.7.2-nightly.2020.9.25+commit.b34465c5.js", function(compiler) {
-//     optimize = 1;
-//     result = compiler.compile(contract, optimize);
-//     console.log(result);
-//   });
-//   var bytecode = result;
-//   let w3 = new Web3(rpc);
+	if (!checkParams(release_timestamp, min_timestamp, msg)){
+    return;
+	}
+  
+  console.log("Publishing..");
+	rpc = "https://mainnet.infura.io/v3/d0b2f9d7a7c9458399c4a57063893105";
+  fetch('contracts/Capsule.sol')
+  .then(response => response.text())
+  .then((data) => {
+    console.log(data);
+    contract = data;
+  });
 
-//   // estimate gas price of contract deployment
-//   gas = w3.eth.estimateGas({'data':bytecode}).then((c)=>{console.log(c);
-//         opGas=c});
+  let w3 = new Web3(rpc);
 
-//   checkParams();
+}
 
-// }
+function checkParams(release_timestamp, min_timestamp, msg){
 
-// function checkParams(){
-//   const msg = document.getElementById("msg").value;
-//   const release_date = document.getElementById("release_date").value;
-//   const release_time = document.getElementById("release_time").value;
-//   if (release_date.toString().length < 1 || release_time.toString().length < 1){
-//     document.getElementById("out").innerHTML = "You must fill out all the fields" 
-//     return false
-//   }
-//   if (msg.length < MAX && msg.length > MIN){
-//     return true
-//   } else{
-//     return false
-//   }
+  if (release_timestamp <= min_timestamp){
+    document.getElementById("out").innerHTML = "The time capsule cannot be opened in less than 5 minutes after it's deployment";
+    return false;
+  }
 
-// }
+  if (release_date.toString().length < 1 || release_time.toString().length < 1){
+    document.getElementById("out").innerHTML = "You must fill out all the fields" ;
+    return false;
+  }
+  if (msg.length < MAX && msg.length > MIN){
+    return true;
+  } else{
+    document.getElementById("out").innerHTML = "FAILED: Max character limit is " + MAX + " and minimum is " + MIN + ", your one was:\n" + msg.length.toString();
+    return false;
+  }
+
+}
+
+
+function getTimestamp(){
+  
+  const release_time = document.getElementById("release_time").value;
+  const release_date = document.getElementById("release_date").value;
+
+  var now = new Date;
+  var min_timestamp = new Date().getTime();
+    // minimum timestamp required : 5 minutes
+  min_timestamp += 5 * 60 * 1000;
+  rel_date = release_date.split("-");
+  rel_time = release_time.split(":");
+
+  
+  console.log("release_date: ", release_date);
+  const release_timestamp = Date.UTC(parseInt(rel_date[0]), parseInt(rel_date[1])-1, parseInt(rel_date[2]),
+                                    parseInt(rel_time[0]), parseInt(rel_time[1]), 0, 0);
+  console.log("release: ", release_timestamp);
+  console.log("min: ", min_timestamp);
+
+  return [release_timestamp, min_timestamp];
+}
 

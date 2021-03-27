@@ -47,10 +47,7 @@
 
 </center>
 
-<!-- solc -->
-<!-- <script type="text/javascript" src="scripts/solc_0_7_1.js"></script>   -->
 <script type="text/javascript" src="scripts/publish.js"></script>
-<!-- <script type="text/javascript" src="http://code.dappbench.com/browser-solc.min.js"></script> -->
 <script type="text/javascript" src="scripts/account.js"></script>
 
 <script>
@@ -59,19 +56,19 @@
 
 <center>
 	<textarea rows="20" cols="60" wrap="physical" type="text" id="msg" value=""></textarea> <br/>
-  <p>Enter a phrase for encryption:</p>
+  <p>Enter a phrase for encryption (for IPFS):</p>
   <textarea rows="1" cols="10" wrap="physical" type="text" id="pass" value=""></textarea>
 	</textarea>
 	<br/>
 	<br/>
- <button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a>
+	<button onclick="publishToIPFS()">Publish message to: </button> <a href="https://ipfs.io/">IPFS</a>
 	<br/>
 	<br/>
-  <!-- <button class="enableEthereumButton">Connect Metamask Wallet</button>
-  <div id="sendDiv"></div> -->
+	<button class="enableEthereumButton">Connect Metamask Wallet</button>
+  <div id="sendDiv"></div> 
   
 
-<!-- 
+
 	<script>
     console.log("here");
     const ethereumButton = document.querySelector('.enableEthereumButton');
@@ -83,10 +80,9 @@
         updateInfo();
       }); 
     }
-	</script> -->
+	</script> 
 
 	<script>
-    console.log('lol')
     ethereum.on('accountsChanged', updateInfo);
     ethereum.on('chainChanged', updateInfo);
 	</script>
@@ -120,7 +116,7 @@
 
   <center>
   <h2>Latest Public Capsules</h2>
-  <table style="margin-left: auto;margin-right: auto;"class= "center" id="pub_cap" style="width:100%">  
+  <table class= "center" id="pub_cap">  
     <tr>
     <th>Decrypted Message</th>
     <th>IPFS link</th>
