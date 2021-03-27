@@ -24,8 +24,7 @@ function updateInfo(){
     info.innerHTML = "selected account: " + acct;
     console.log("set")
   } else{
-    ethereumButton.innerHTML = "This chain is not supported";
-    sendButton.remove()
+    sendButton.remove();
     info.innerHTML = "This chain is not supported";
   }
 }
