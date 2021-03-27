@@ -20,7 +20,7 @@ function updateInfo(){
   var acct = ethereum.selectedAddress; 
   if (Object.keys(CHAINS).includes(chainID)){
     ethereumButton.remove();
-    sendButton.innerHTML = "Publish to " + CHAINS[chainID];
+    sendButton.innerHTML = "Publish to " + CHAINS[chainID] + "[UNDER DEVELOPMENT]";
     info.innerHTML = "selected account: " + acct;
     console.log("set")
   } else{
